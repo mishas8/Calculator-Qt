@@ -2,13 +2,50 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
+}
+
+void digetClicked(){
+
+}
+
+void commaClicked(){
+
+}
+
+void equalClicked(){
+
+}
+
+void signClicked(){
+
+}
+
+void unaryOperatorClicked(){
+
+}
+
+void binaryOperatorClicked(){
+
+}
+
+void additOperatorClicked(){
+
+}
+
+void multOperatorClicked(){
+
+}
+
+void clearClicked(){
+
+}
+
+void backspaceClicked(){
+
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
