@@ -96,7 +96,7 @@
     <string>ln(x)</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="sevenButton">
+  <widget class="QToolButton" name="Button7">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -108,8 +108,11 @@
    <property name="text">
     <string>7</string>
    </property>
+   <property name="autoRaise">
+    <bool>false</bool>
+   </property>
   </widget>
-  <widget class="QToolButton" name="eightButton">
+  <widget class="QToolButton" name="Button8">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -122,7 +125,7 @@
     <string>8</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="nineButton">
+  <widget class="QToolButton" name="Button9">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -135,7 +138,7 @@
     <string>9</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="fourButton">
+  <widget class="QToolButton" name="Button4">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -148,7 +151,7 @@
     <string>4</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="fiveButton">
+  <widget class="QToolButton" name="Button5">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -161,7 +164,7 @@
     <string>5</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="sixButton">
+  <widget class="QToolButton" name="Button6">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -174,7 +177,7 @@
     <string>6</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="oneButton">
+  <widget class="QToolButton" name="Button1">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -187,7 +190,7 @@
     <string>1</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="twoButton">
+  <widget class="QToolButton" name="Button2">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -200,7 +203,7 @@
     <string>2</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="threeButton">
+  <widget class="QToolButton" name="Button3">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -213,7 +216,7 @@
     <string>3</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="zeroButton">
+  <widget class="QToolButton" name="Button0">
    <property name="geometry">
     <rect>
      <x>10</x>

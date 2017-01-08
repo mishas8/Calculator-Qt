@@ -43,6 +43,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::digetClicked(const QString &str)
 {
+    QToolButton *clickedButton = qobject_cast<QToolButton *>(sender());
+    int digitValue = clickedButton->text().toInt();
     ui->display->setText(str);
 }
 

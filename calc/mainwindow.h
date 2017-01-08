@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPushButton>
+#include <QSignalMapper>
+
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +18,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void digetClicked(); /// 0..9
+    void digetClicked(const QString &str); /// 0..9
     void commaClicked(); /// запятая
     void equalClicked(); /// равно
     void signClicked();  /// поменять знак
@@ -29,8 +30,9 @@ private slots:
     void backspaceClicked();
 
 private:
+    QSignalMapper *signalMapper;
     Ui::MainWindow *ui;
-    QPushButton *buttons[10];
+    enum { NumDigitButtons = 10 };
 };
 
 #endif // MAINWINDOW_H
