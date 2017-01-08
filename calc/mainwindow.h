@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,8 @@ private slots:
     void backspaceClicked();
 
 private:
+    Ui::MainWindow *ui;
+    QPushButton *buttons[10];
 };
 
 #endif // MAINWINDOW_H
