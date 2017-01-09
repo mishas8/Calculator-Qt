@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSignalMapper>
+#include <QToolButton>
 
 
 namespace Ui {
@@ -18,7 +19,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void digetClicked(const QString &str); /// 0..9
+    void digetClicked(const QString &s); /// 0..9
     void commaClicked(); /// запятая
     void equalClicked(); /// равно
     void signClicked();  /// поменять знак
@@ -32,7 +33,8 @@ private slots:
 private:
     QSignalMapper *signalMapper;
     Ui::MainWindow *ui;
-    enum { NumDigitButtons = 10 };
+    bool operandClicked;
+    QToolButton *buttons[10];
 };
 
 #endif // MAINWINDOW_H

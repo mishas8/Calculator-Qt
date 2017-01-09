@@ -268,7 +268,7 @@
     <string>+</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="divisionButton">
+  <widget class="QToolButton" name="divButton">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -281,7 +281,7 @@
     <string>/</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="timesButton">
+  <widget class="QToolButton" name="multButton">
    <property name="geometry">
     <rect>
      <x>160</x>
