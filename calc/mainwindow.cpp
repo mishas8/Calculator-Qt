@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
+#include <QObject>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,34 +10,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     operandClicked = true;
-    QSignalMapper *mapper = new QSignalMapper( this );
+    QSignalMapper *mapperDigit = new QSignalMapper(this),
+                  *mapperUnary = new QSignalMapper(this),
+                  *mapperBinary = new QSignalMapper(this);
 
-    mapper->setMapping( ui->Button0, ui->Button0->text() );
-    mapper->setMapping( ui->Button1, ui->Button1->text() );
-    mapper->setMapping( ui->Button2, ui->Button2->text() );
-    mapper->setMapping( ui->Button3, ui->Button3->text() );
-    mapper->setMapping( ui->Button4, ui->Button4->text() );
-    mapper->setMapping( ui->Button5, ui->Button5->text() );
-    mapper->setMapping( ui->Button6, ui->Button6->text() );
-    mapper->setMapping( ui->Button7, ui->Button7->text() );
-    mapper->setMapping( ui->Button8, ui->Button8->text() );
-    mapper->setMapping( ui->Button9, ui->Button9->text() );
+    /* digits */
+    for(int i=0; i<10; i++) {
+        QToolButton* btn = findChild<QToolButton*>( QString("Button%1").arg(i) );
+        mapperDigit->setMapping( btn, QString("%1").arg(i) );
+        connect( btn, SIGNAL(clicked()), mapperDigit, SLOT(map()) );
+    }
 
-
-    connect( ui->Button0, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button1, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button2, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button3, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button4, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button5, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button6, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button7, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button8, SIGNAL(clicked()), mapper, SLOT(map()) );
-    connect( ui->Button9, SIGNAL(clicked()), mapper, SLOT(map()) );
-
-    connect( mapper, SIGNAL(mapped(QString)), this, SLOT(digetClicked(QString)) );
+    connect( mapperDigit, SIGNAL(mapped(QString)), this, SLOT(digetClicked(QString)) );
     connect( ui->changeSignButton, SIGNAL(clicked()), this, SLOT(signClicked()) );
     connect( ui->clearButton, SIGNAL(clicked()), this, SLOT(clearClicked()) );
+    connect( ui->commaButton, SIGNAL(clicked()), this, SLOT(commaClicked()) );
 
 }
 
@@ -45,10 +33,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::digetClicked(const QString &s)
+void MainWindow::digetClicked(const QString &digit)
 {
-       /* Можно будет нажать только один 0, вместо 000000.. */
-    if (ui->display->text() == "0" && s == "0") {
+    QString text = ui->display->text();
+
+    /* Можно будет нажать только один 0, вместо 000000.. */
+    if (text == "0" && digit == "0") {
         return;
     }
 
@@ -58,11 +48,20 @@ void MainWindow::digetClicked(const QString &s)
         operandClicked = false;
     }
 
-    ui->display->setText(ui->display->text() + s);
+    ui->display->setText(text + digit);
 }
 
-void MainWindow::commaClicked(){
+void MainWindow::commaClicked()
+{
+    QString text = ui->display->text();
 
+    if (operandClicked) {
+        ui->display->setText("0");
+    }
+    if (!text.contains(",")) {
+        ui->display->setText(text + ",");
+    }
+    operandClicked = false;
 }
 
 void MainWindow::equalClicked(){
@@ -88,13 +87,13 @@ void MainWindow::binaryOperatorClicked(){
 
 }
 
-void MainWindow::additOperatorClicked(){
+/*void MainWindow::additOperatorClicked(){
 
 }
 
 void MainWindow::multOperatorClicked(){
 
-}
+}*/
 
 void MainWindow::clearClicked()
 {

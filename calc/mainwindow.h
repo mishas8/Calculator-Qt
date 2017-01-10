@@ -19,14 +19,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void digetClicked(const QString &s); /// 0..9
+    void digetClicked(const QString &digit); /// 0..9
     void commaClicked(); /// запятая
     void equalClicked(); /// равно
     void signClicked();  /// поменять знак
-    void unaryOperatorClicked();  /// корень, квадрат, модуль
-    void binaryOperatorClicked(); /// логарифм, степень
-    void additOperatorClicked();  /// +, -
-    void multOperatorClicked();   /// *, %
+    void unaryOperatorClicked();  /// корень, квадрат, модуль, факториал, обратное, логарифм
+    void binaryOperatorClicked();  /// +, -, *, %
     void clearClicked();
     void backspaceClicked();
 
@@ -34,7 +32,7 @@ private:
     QSignalMapper *signalMapper;
     Ui::MainWindow *ui;
     bool operandClicked;
-    QToolButton *buttons[10];
+    QToolButton *button[10];
 };
 
 #endif // MAINWINDOW_H

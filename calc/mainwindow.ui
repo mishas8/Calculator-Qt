@@ -70,7 +70,7 @@
     <string>|x|</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="powerAllButton">
+  <widget class="QToolButton" name="factorialButton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -80,7 +80,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>x^a</string>
+    <string>x!</string>
    </property>
   </widget>
   <widget class="QToolButton" name="logNaturalButton">
@@ -229,7 +229,7 @@
     <string>0</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="pointButton">
+  <widget class="QToolButton" name="commaButton">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -239,7 +239,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>.</string>
+    <string>,</string>
    </property>
   </widget>
   <widget class="QToolButton" name="changeSignButton">
@@ -268,7 +268,7 @@
     <string>+</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="divisionButton">
+  <widget class="QToolButton" name="divButton">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -281,7 +281,7 @@
     <string>/</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="timesButton">
+  <widget class="QToolButton" name="multButton">
    <property name="geometry">
     <rect>
      <x>160</x>
