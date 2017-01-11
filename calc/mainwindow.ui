@@ -70,7 +70,7 @@
     <string>|x|</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="factorialButton">
+  <widget class="QToolButton" name="factButton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -83,7 +83,7 @@
     <string>x!</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="logNaturalButton">
+  <widget class="QToolButton" name="lnButton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -239,7 +239,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>,</string>
+    <string>.</string>
    </property>
   </widget>
   <widget class="QToolButton" name="changeSignButton">
@@ -294,7 +294,7 @@
     <string>*</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="minusButton">
+  <widget class="QToolButton" name="subButton">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -307,7 +307,7 @@
     <string>-</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="squareRootButton">
+  <widget class="QToolButton" name="sqrtButton">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -320,7 +320,7 @@
     <string>Sqrt</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="power2Button">
+  <widget class="QToolButton" name="pov2Button">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -333,7 +333,7 @@
     <string>x^2</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="reciprocalButton">
+  <widget class="QToolButton" name="recButton">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -367,6 +367,14 @@
      <width>291</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Gothic</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="maxLength">
     <number>10</number>
