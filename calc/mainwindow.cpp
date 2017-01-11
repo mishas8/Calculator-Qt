@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <cmath>
 #include <QDebug>
 #include <QObject>
 
@@ -24,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     /* unary operators */
-    QString operators[] = {"abs", "sqrt", "pov2", "fact", "rec", "ln" , "plus", "sub", "mult", "div"};
+    QString operators[] = {"exp", "sqrt", "pov2", "fact", "rec", "ln" , "plus", "sub", "mult", "div"};
     for(int i = 0; i < OPERATORS_NUM; i++) {
         if (i < 6){
             QToolButton* unarBtn = findChild<QToolButton*>( QString("%1Button").arg(operators[i]) );
@@ -82,8 +83,8 @@ void MainWindow::commaClicked()
     if (operatorPushed) {
         ui->display->setText("0");
     }
-    if (!text.contains(".")) {
-        ui->display->setText(text + ".");
+    if (!text.contains(",")) {
+        ui->display->setText(text + ",");
     }
     operatorPushed = false;
 }
@@ -95,7 +96,7 @@ void MainWindow::equalClicked(){
 void MainWindow::signClicked()
 {
     QString text = ui->display->text();
-    double value = text.toDouble();
+    double value = QLocale::system().toDouble(text);
     if (value > 0) {
         ui->display->setText(text.insert(0, '-') );
     } else if (value < 0) {
@@ -105,7 +106,7 @@ void MainWindow::signClicked()
 
 void MainWindow::unaryOpClicked(const QString &op)
 {
-    double value = ui->display->text().toDouble();
+    double value = QLocale::system().toDouble(ui->display->text());
     double result = 0.0;
 
     if (op == "sqrt"){
@@ -115,8 +116,8 @@ void MainWindow::unaryOpClicked(const QString &op)
             return;
         }
         result = sqrt(value);
-    } else  if (op == "abs") {
-        result = abs(value);
+    } else  if (op == "exp") {
+        result = exp(value);
     } else if (op == "pov2") {
         result = value*value;
     } else if (op == "fact") {
@@ -125,7 +126,7 @@ void MainWindow::unaryOpClicked(const QString &op)
             for (result = 1.0; value > 1; result *= (value--))
                 ;
         } else {
-            errorMessage.setText("Факториал не определен!");
+            errorMessage.setText("Факториал для этого аргумента не определен!");
             errorMessage.exec();
             return;
         }
@@ -145,7 +146,7 @@ void MainWindow::unaryOpClicked(const QString &op)
         }
         result = log(value);
     }
-    ui->display->setText(QString::number(result));
+    ui->display->setText(QLocale::system().toString(result));
     operatorPushed = true;
 }
 

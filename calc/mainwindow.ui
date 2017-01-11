@@ -57,7 +57,7 @@
     <string>Clear</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="absButton">
+  <widget class="QToolButton" name="expButton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -67,7 +67,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>|x|</string>
+    <string>e^x</string>
    </property>
   </widget>
   <widget class="QToolButton" name="factButton">
@@ -239,7 +239,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>.</string>
+    <string>,</string>
    </property>
   </widget>
   <widget class="QToolButton" name="changeSignButton">
@@ -370,8 +370,8 @@
    </property>
    <property name="font">
     <font>
-     <family>MS Gothic</family>
-     <pointsize>16</pointsize>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
