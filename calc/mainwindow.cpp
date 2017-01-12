@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->display->setText("0");
     summand = 0.0;
     factor = 0.0;
     operatorPushed = true;
@@ -62,18 +63,17 @@ void MainWindow::digetClicked(const QString &digit)
 {
     QString text = ui->display->text();
 
-    /* Можно будет нажать только один 0, вместо 000000.. */
-    if (text == "0" && digit == "0") {
-        return;
-    }
-
     /* Если нажали на операнд, то экран очистился */
     if (operatorPushed) {
         ui->display->clear();
         operatorPushed = false;
     }
 
-    ui->display->setText(text + digit);
+    if (text == "0" && digit != ",") {
+        ui->display->setText(digit);
+    } else {
+        ui->display->setText(text + digit);
+    }
 }
 
 void MainWindow::commaClicked()
@@ -146,21 +146,60 @@ void MainWindow::unaryOpClicked(const QString &op)
         }
         result = log(value);
     }
-    ui->display->setText(QLocale::system().toString(result));
+    ui->display->setText(QLocale::system().toString(result, 'f', 21));
     operatorPushed = true;
 }
 
-void MainWindow::addOpClicked(const QString &op){
+void MainWindow::addOpClicked(const QString &op)
+{
+    /*double curValue = display->text().toDouble();
 
+    if (!pendingMultiplicativeOperator.isEmpty()) {
+        if (!calculate(operand, pendingMultiplicativeOperator)) {
+            abortOperation();
+            return;
+        }
+        display->setText(QString::number(factorSoFar));
+        operand = factorSoFar;
+        factorSoFar = 0.0;
+        pendingMultiplicativeOperator.clear();
+    }
+
+    if (!pendingAdditiveOperator.isEmpty()) {
+        if (!calculate(operand, pendingAdditiveOperator)) {
+            abortOperation();
+            return;
+        }
+        display->setText(QString::number(sumSoFar));
+    } else {
+        sumSoFar = operand;
+    }
+
+    pendingAdditiveOperator = clickedOperator;
+    waitingForOperand = true;*/
 }
 
-void MainWindow::multOpClicked(const QString &op){
+void MainWindow::multOpClicked(const QString &op)
+{
+    /*double curValue = QLocale::system().toDouble(ui->display->text());
 
+    if (!addOperatorPushed.isEmpty()) { ///  если нажат аддитивный оператор
+        if (!calculate(curValue, pendingMultiplicativeOperator)) {
+            errorMessage.setText("error na!");
+            errorMessage.exec();
+            return;
+        }
+        ui->display->setText(QLocale::system().toString(factor));
+    } else {
+        factor = curValue
+
+    pendingMultiplicativeOperator = op;
+    operatorPushed = true;  */
 }
 
 void MainWindow::clearClicked()
 {
-    ui->display->setText("");
+    ui->display->setText("0");
     operatorPushed = true;
 }
 

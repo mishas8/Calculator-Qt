@@ -371,13 +371,13 @@
    <property name="font">
     <font>
      <family>MS Shell Dlg 2</family>
-     <pointsize>14</pointsize>
+     <pointsize>16</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="maxLength">
-    <number>10</number>
+    <number>21</number>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
