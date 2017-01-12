@@ -3,6 +3,7 @@
 #include <cmath>
 #include <QDebug>
 #include <QObject>
+#include <QDoubleValidator>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -48,8 +49,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect( unarMapper, SIGNAL(mapped(QString)), this, SLOT(unaryOpClicked(QString)) );
     connect( addMapper, SIGNAL(mapped(QString)), this, SLOT(addOpClicked(QString)) );
     connect( multMapper, SIGNAL(mapped(QString)), this, SLOT(multOpClicked(QString)) );
+    connect( ui->equalButton, SIGNAL(clicked()), this, SLOT(equalClicked()) );
     connect( ui->changeSignButton, SIGNAL(clicked()), this, SLOT(signClicked()) );
-    connect( ui->clearButton, SIGNAL(clicked()), this, SLOT(clearClicked()) );
+    connect( ui->clearButton, SIGNAL(clicked()), this, SLOT(clear()) );
     connect( ui->commaButton, SIGNAL(clicked()), this, SLOT(commaClicked()) );
 
 }
@@ -61,18 +63,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::digetClicked(const QString &digit)
 {
+    QLineEdit *lineEdit = new QLineEdit(this);
+    QDoubleValidator *v = new QDoubleValidator(this);
+    v->setNotation(QDoubleValidator::StandardNotation);
+    lineEdit->setValidator(v);
+
     QString text = ui->display->text();
 
-    /* Если нажали на операнд, то экран очистился */
     if (operatorPushed) {
         ui->display->clear();
         operatorPushed = false;
     }
 
+    QString s = text + digit;
+    int i;
+
     if (text == "0" && digit != ",") {
         ui->display->setText(digit);
-    } else {
-        ui->display->setText(text + digit);
+    } else if (lineEdit->validator()->validate(s,i) != QValidator::Invalid) {
+        ui->display->setText(s);
     }
 }
 
@@ -87,10 +96,6 @@ void MainWindow::commaClicked()
         ui->display->setText(text + ",");
     }
     operatorPushed = false;
-}
-
-void MainWindow::equalClicked(){
-
 }
 
 void MainWindow::signClicked()
@@ -146,63 +151,132 @@ void MainWindow::unaryOpClicked(const QString &op)
         }
         result = log(value);
     }
-    ui->display->setText(QLocale::system().toString(result, 'f', 21));
+    ui->display->setText(textFormat(result));
     operatorPushed = true;
 }
 
 void MainWindow::addOpClicked(const QString &op)
 {
-    /*double curValue = display->text().toDouble();
+    qDebug() << "addOpClicked";
+    double curValue = QLocale::system().toDouble(ui->display->text());
 
-    if (!pendingMultiplicativeOperator.isEmpty()) {
-        if (!calculate(operand, pendingMultiplicativeOperator)) {
-            abortOperation();
-            return;
-        }
-        display->setText(QString::number(factorSoFar));
-        operand = factorSoFar;
-        factorSoFar = 0.0;
-        pendingMultiplicativeOperator.clear();
-    }
-
-    if (!pendingAdditiveOperator.isEmpty()) {
-        if (!calculate(operand, pendingAdditiveOperator)) {
-            abortOperation();
-            return;
-        }
-        display->setText(QString::number(sumSoFar));
-    } else {
-        sumSoFar = operand;
-    }
-
-    pendingAdditiveOperator = clickedOperator;
-    waitingForOperand = true;*/
-}
-
-void MainWindow::multOpClicked(const QString &op)
-{
-    /*double curValue = QLocale::system().toDouble(ui->display->text());
-
-    if (!addOperatorPushed.isEmpty()) { ///  если нажат аддитивный оператор
-        if (!calculate(curValue, pendingMultiplicativeOperator)) {
+    if (!multOperatorPushed.isEmpty()) { /// если нажат мультипликативный опреатор
+        qDebug() << "i'm here!multOperatorPushed";
+        if (!calculate(curValue, multOperatorPushed)) { /// и нажато '='
+            clear();
             errorMessage.setText("error na!");
             errorMessage.exec();
             return;
         }
-        ui->display->setText(QLocale::system().toString(factor));
-    } else {
-        factor = curValue
+        ui->display->setText(textFormat(factor)); /// множитель
+        curValue = factor;
+        factor = 0.0;
+        multOperatorPushed.clear();
+    }
 
-    pendingMultiplicativeOperator = op;
-    operatorPushed = true;  */
+    if (!addOperatorPushed.isEmpty()) { /// если нажат аддитивный оператор
+        qDebug() << "i'm here addOperatorPushed!";
+        if (!calculate(curValue, addOperatorPushed)) {
+            clear();
+            errorMessage.setText("error na!");
+            errorMessage.exec();
+            return;
+        }
+        ui->display->setText(textFormat(summand));
+    } else {
+        summand = curValue;
+    }
+
+    addOperatorPushed = op;
+    operatorPushed = true;
 }
 
-void MainWindow::clearClicked()
+void MainWindow::multOpClicked(const QString &op)
 {
+    qDebug() << "multOpClicked";
+    double curValue = QLocale::system().toDouble(ui->display->text());
+
+    if (!addOperatorPushed.isEmpty()) { ///  если нажат аддитивный оператор
+        if (!calculate(curValue, multOperatorPushed)) {
+            clear();
+            errorMessage.setText("error na!");
+            errorMessage.exec();
+            return;
+        }
+        ui->display->setText(textFormat(factor));
+    } else {
+        factor = curValue;
+        multOperatorPushed = op;
+        operatorPushed = true;
+    }
+}
+
+void MainWindow::equalClicked()
+{
+    qDebug() << "equalOpClicked";
+    double curValue = QLocale::system().toDouble(ui->display->text());
+
+    if (!multOperatorPushed.isEmpty()) { /// если нажат мультипликативный опреатор
+        if (!calculate(curValue, multOperatorPushed)) { /// и нажато '='
+            clear();
+            errorMessage.setText("error na!");
+            errorMessage.exec();
+            return;
+        }
+        ui->display->setText(textFormat(factor)); /// множитель
+        curValue = factor;
+        factor = 0.0;
+        multOperatorPushed.clear();
+    }
+
+    if (!addOperatorPushed.isEmpty()) { /// если нажат аддитивный оператор
+        if (!calculate(curValue, addOperatorPushed)) {
+            clear();
+            errorMessage.setText("error na!");
+            errorMessage.exec();
+            return;
+        }
+        addOperatorPushed.clear();
+    } else {
+        summand = curValue;
+    }
+    ui->display->setText(textFormat(summand));
+    summand = 0.0;
+    operatorPushed = true;
+}
+
+void MainWindow::clear()
+{
+    summand = 0.0;
+    factor = 0.0;
+    addOperatorPushed.clear();
+    multOperatorPushed.clear();
     ui->display->setText("0");
     operatorPushed = true;
 }
 
 void MainWindow::backspaceClicked(){
 
+}
+
+bool MainWindow::calculate(double rightOperand, const QString &op)
+{
+    if (op == "plus") {
+        summand += rightOperand;
+    } else if (op == "sub") {
+        summand -= rightOperand;
+    } else if (op == "mult") {
+        factor *= rightOperand;
+    } else if (op == "div") {
+        if (rightOperand == 0.0)
+            return false;
+        factor /= rightOperand;
+    }
+    return true;
+}
+
+QString MainWindow::textFormat(const double &text)
+{
+    QString temp = QLocale::system().toString(text, 'f', 21);
+    return temp.remove(QRegExp(",?0+$"));
 }

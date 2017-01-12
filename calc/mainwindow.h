@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #define DIGITS_NUM 10
-#define OPERATORS_NUM 6
+#define OPERATORS_NUM 10
 
 #include <QMainWindow>
 #include <QSignalMapper>
@@ -32,7 +32,7 @@ private slots:
     void commaClicked(); /// запятая
     void equalClicked(); /// равно
     void signClicked();  /// поменять знак
-    void clearClicked();
+    void clear();
     void backspaceClicked();
 
 private:
@@ -44,6 +44,8 @@ private:
     bool operatorPushed;
     double summand;
     double factor;
+    bool calculate(double rightOperand, const QString &op);
+    QString textFormat(const double &text);
 
 };
 
