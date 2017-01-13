@@ -255,7 +255,7 @@
     <string>+/-</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="plusButton">
+  <widget class="QToolButton" name="addButton">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -346,7 +346,7 @@
     <string>1/x</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="equalButton">
+  <widget class="QToolButton" name="eqButton">
    <property name="geometry">
     <rect>
      <x>210</x>
