@@ -20,7 +20,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    enum action {ADD, SUB, MULT, DIV, EQUAL};
 
 signals:
     void valueChanged(int value);
@@ -29,25 +28,24 @@ private slots:
     void digetClicked(const QString &digit); /// 0..9
     void unaryOpClicked(const QString &op);
     void otherOpClicked(const QString &op);
-    //void multOpClicked(const QString &op);
     void commaClicked(); /// запятая
-    //void equalClicked(); /// равно
     void signClicked();  /// поменять знак
     void clear();
     void backspaceClicked();
 
 private:
     Ui::MainWindow *ui;
-    QSignalMapper *signalMapper;
-    QMessageBox errorMessage;
     QString addOperatorPushed;
     QString multOperatorPushed;
     bool operatorPushed;
     double summand;
     double factor;
-    action act;
+
     void equalClicked();
-    //bool calculate(double rightOperand, const QString &op);
+    void errorMes(const char &c);
+    void digitConnect();
+    void operatorConnect();
+    void calculate(double rightOperand, const QString &op);
     QString textFormat(const double &text);
 
 };
